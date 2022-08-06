@@ -1,10 +1,11 @@
 package com.example.coffeeshop;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+
+import java.util.ArrayList;
 
 public class HelloController {
 
@@ -18,14 +19,29 @@ public class HelloController {
     private ToggleGroup beverageCoffeeGroup;
     @FXML
     private Label receiptLabel;
+    @FXML
+    private CheckBox halfAndHalfCheckbox;
+    @FXML
+    private CheckBox milkCheckBox;
+    @FXML
+    private CheckBox soyMilkCheckbox;
+    @FXML
+    private Slider milkSlider;
+
+    Beverage beverage;
+    ArrayList<Beverage> order;
+    @FXML
+    private TextField customerNameTextField;
+    @FXML
+    private TextArea orderTextArea;
 
     //can't use a constructor here because the FX stuff isn't loaded
-    public HelloController(){
-       // showReceipt();
+    public HelloController() {
+        // showReceipt();
     }
 
     //kind of like a constructor - this runs AFTER the javafx stuff is added
-    public void initialize(){
+    public void initialize() {
         showReceipt();
     }
 
@@ -41,13 +57,44 @@ public class HelloController {
         showReceipt();
     }
 
-    private void showReceipt(){
-        if ( espressoRadioButton.isSelected() ) {
-            receiptLabel.setText("Espresso $1.50");
-        } else if ( coffeeRadioButton.isSelected() ) {
-            receiptLabel.setText("Coffee $1.00");
-        } else if ( latteRadioButton.isSelected() ) {
-            receiptLabel.setText("Latte $2.00");
+    private void showReceipt() {
+
+        double totalCost = 0;
+        if (espressoRadioButton.isSelected()) {
+            beverage = new Beverage("Espresso");
+        } else if (coffeeRadioButton.isSelected()) {
+            beverage = new Beverage("Coffee");
+        } else if (latteRadioButton.isSelected()) {
+            beverage = new Beverage("Latte");
         }
+        int numberOfMilksToAdd = (int) milkSlider.getValue();
+        if (milkCheckBox.isSelected()) {
+            beverage.addAddins("milk", numberOfMilksToAdd);
+        }
+        if (halfAndHalfCheckbox.isSelected()) {
+            beverage.addAddins("half and half", numberOfMilksToAdd);
+        }
+        if (soyMilkCheckbox.isSelected()) {
+            beverage.addAddins("soy milk", numberOfMilksToAdd);
+        }
+
+        receiptLabel.setText(beverage.getReceipt());
+    }
+
+    @FXML
+    public void addinCheckBoxChecked(ActionEvent actionEvent) {
+        showReceipt();
+    }
+
+    @FXML
+    public void milkSliderScroll(Event event) {
+        showReceipt();
+    }
+
+    @FXML
+    public void addToOrderButtonClicked(ActionEvent actionEvent) {
+        beverage.setCustomerName(customerNameTextField.getText());
+        orderTextArea.appendText(beverage.getReceipt() + "\n");
+        customerNameTextField.setText("");
     }
 }

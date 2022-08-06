@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coffeeshop.HelloController">
    <children>
@@ -16,5 +20,13 @@
       <RadioButton fx:id="latteRadioButton" layoutX="50.0" layoutY="121.0" mnemonicParsing="false" onAction="#beverageRadioButtonClicked" text="Latte $2" toggleGroup="$beverageCoffeeGroup" />
       <RadioButton fx:id="espressoRadioButton" layoutX="50.0" layoutY="165.0" mnemonicParsing="false" onAction="#beverageRadioButtonClicked" text="Espresso $1.50" toggleGroup="$beverageCoffeeGroup" />
       <Label fx:id="receiptLabel" layoutX="300.0" layoutY="24.0" />
+      <CheckBox fx:id="milkCheckBox" layoutX="215.0" layoutY="75.0" mnemonicParsing="false" onAction="#addinCheckBoxChecked" text="Milk" />
+      <CheckBox fx:id="halfAndHalfCheckbox" layoutX="215.0" layoutY="121.0" mnemonicParsing="false" onAction="#addinCheckBoxChecked" text="Half and Half" />
+      <CheckBox fx:id="soyMilkCheckbox" layoutX="215.0" layoutY="165.0" mnemonicParsing="false" onAction="#addinCheckBoxChecked" text="Soy Milk + $.50" />
+      <Slider fx:id="milkSlider" blockIncrement="1.0" layoutX="387.0" layoutY="77.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" onMouseReleased="#milkSliderScroll" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Button layoutX="65.0" layoutY="267.0" mnemonicParsing="false" onAction="#addToOrderButtonClicked" text="Add To Order" />
+      <TextArea fx:id="orderTextArea" layoutX="194.0" layoutY="221.0" prefHeight="171.0" prefWidth="389.0" />
+      <TextField fx:id="customerNameTextField" layoutX="65.0" layoutY="221.0" prefHeight="25.0" prefWidth="103.0" />
+      <Label layoutX="14.0" layoutY="225.0" text="Name" />
    </children>
 </AnchorPane>
